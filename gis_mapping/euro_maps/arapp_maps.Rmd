@@ -1,0 +1,80 @@
+# Map making with A Rapp (Euro Map)
+
+## Albert Rapp
+
+### 1) Load the required packages
+
+```{r}
+library(tidyverse)
+library(giscoR)
+library(httr2)
+library(sf)
+```
+#### a) Load the map data (level codes are the admin units or NUTS levels)
+
+```{r}
+germany_districts <- gisco_get_nuts(
+  country = "Germany",
+  nuts_level = 3,
+  year = "2021",
+  epsg = 3035
+) |>
+  as_tibble() |>
+  janitor::clean_names() 
+
+germany_states <- gisco_get_nuts(
+  country = "Germany",
+  nuts_level = 1,
+  year = "2021",
+  epsg = 3035
+) |>
+  as_tibble() |>
+  janitor::clean_names() 
+```
+
+#### b) Plot the maps
+
+```{r}
+germany_districts |>
+  ggplot(aes(geometry = geometry)) +
+  geom_sf(
+    data = germany_states,
+    aes(fill = nuts_name),
+    color = "black",
+    linewidth = 0.5
+  ) + 
+  geom_sf(
+    fill = NA,
+    color = "black",
+    linewidth = 0.1
+  )
+```
+
+
+#### c) Interactive maps
+
+```{r}
+library(ggiraph)
+
+gg_plt <- germany_districts |>
+  ggplot(aes(geometry = geometry)) +
+  geom_sf(
+    data = germany_states,
+    aes(fill = nuts_name),
+    color = "black",
+    linewidth = 0.5
+  ) + 
+  geom_sf_interactive(
+    fill = NA,
+    aes(
+      data_id = nuts_id,
+      tooltip = nuts_name
+    ),
+    color = "black",
+    linewidth = 0.1
+  ) + 
+  theme_void() +
+  theme(legend.position = "none")
+
+girafe(ggobj = gg_plt)
+```
