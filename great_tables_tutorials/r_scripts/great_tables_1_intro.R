@@ -284,6 +284,8 @@ gt_tbl <-
 # Show the gt table
 gt_tbl
 
+gtsave(gt_tbl, "great_tables_tutorials/great_tables_1_image_1.png")
+
 ########## Put brackets ########
 
 gt_tbl <- 

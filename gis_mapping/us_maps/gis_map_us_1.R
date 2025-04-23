@@ -16,18 +16,22 @@ plot_usmap(
   ) + 
   scale_fill_gradient(
     trans = "log",
-    labels = scales::label_number(big.mark = ","),
+    labels = scales::label_number(scale = 1/1000, suffix = "k", big.mark = ","),
     breaks = c(1000, 20000, 400000, 8000000),
     high = "#0072B2",
     low = "white"
   ) + 
   theme(
     text = element_text(family = "Source Sans Pro", size = 16),
-    legend.position = "top") + 
+    legend.position = "top",
+    panel.background = element_rect(fill = "white", color = NA),
+    plot.background = element_rect(fill = "white", color = NA)) + 
   labs(fill  = "Population (2022)") +
   guides(
     fill = guide_colorbar(
       barwidth = unit(10, "cm")
     )
   )
-  
+
+ggsave("gis_mapping/us_maps/gis_map_us_1.png",
+       width = 8, height = 4, dpi = 300)

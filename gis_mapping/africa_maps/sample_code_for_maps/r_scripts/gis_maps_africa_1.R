@@ -20,4 +20,11 @@ world$gdp_per_capita <- runif(n = nrow(world), min = 100, max = 20000)
 ggplot() +
   geom_sf(data = world, aes(fill = gdp_per_capita)) +
   scale_fill_viridis_c(name = "GDP per capita") +
-  theme_minimal()
+  theme(
+    panel.background = element_rect(fill = "white", color = NA),
+    plot.background = element_rect(fill = "white", color = NA),
+    axis.text = element_blank(),
+    axis.ticks = element_blank()
+  ) 
+
+ggsave("gis_mapping/africa_maps/sample_code_for_maps/gis_maps_africa_1.png")
