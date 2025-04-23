@@ -2,7 +2,7 @@
 
 Random sampling of tutorials that I have found useful.
 
-***NOTE: Direct links to the code used to produce the image will be availed ASAP.***
+***NOTE: Direct links to the code used to produce the image(s) below will be availed ASAP.***
 
 ## 1) Tinytables
 
